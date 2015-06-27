@@ -12,7 +12,15 @@
 exports.description = 'Create a QUnit test for JavaScript.';
 
 // Template-specific notes to be displayed before question prompts.
-// exports.notes = '';
+exports.notes = '';
+
+// Template-specific notes to be displayed after question prompts.
+exports.after = 'You should now install project dependencies with _npm ' +
+  'install_. After that, you may execute project tasks with _grunt_. For ' +
+  'more information about installing and configuring Grunt, please see ' +
+  'the Getting Started guide:' +
+  '\n\n' +
+  'http://gruntjs.com/getting-started';
 
 // Any existing file or directory matching this wildcard will cause a warning.
 exports.warnOn = '*';
@@ -23,11 +31,7 @@ exports.template = function (grunt, init, done) {
   init.process({type: 'jquery'}, [
     // Prompt for these values.
     init.prompt('name'),
-    init.prompt('title', function (value, data, done) {
-      // Fix jQuery capitalization.
-      value = value.replace(/jquery/gi, 'jQuery');
-      done(null, value);
-    }),
+    init.prompt('title'),
     init.prompt('description', 'My awesome JavaScript.'),
     init.prompt('version'),
     init.prompt('licenses', 'MIT'),
@@ -37,6 +41,16 @@ exports.template = function (grunt, init, done) {
   ], function (err, props) {
     // A few additional properties.
     props.keywords = [];
+    props.npm_test = 'grunt qunit';
+    props.devDependencies = {
+      'grunt-contrib-clean': '~0.6.0',
+      'grunt-contrib-concat': '~0.5.0',
+      'grunt-contrib-jshint': '~0.11.0',
+      'grunt-contrib-qunit': '~0.7.0',
+      'grunt-contrib-uglify': '~0.9.0',
+      'grunt-contrib-watch': '~0.6.0',
+      'qunit-assert-close': '^1.1.2'
+    };
 
     // Files to copy (and process).
     var files = init.filesToCopy(props);
@@ -48,24 +62,9 @@ exports.template = function (grunt, init, done) {
     init.copyAndProcess(files, props, {noProcess: 'libs/**'});
 
     // Generate package.json file, used by npm and grunt.
-    init.writePackageJSON('package.json', {
-      name: 'javascript-qunit',
-      version: '0.0.0-ignored',
-      npm_test: 'grunt qunit',
-      node_version: '>= 0.10.0',
-      devDependencies: {
-        "grunt-contrib-clean": "~0.6.0",
-        "grunt-contrib-concat": "~0.5.0",
-        "grunt-contrib-jshint": "~0.11.0",
-        "grunt-contrib-qunit": "~0.7.0",
-        "grunt-contrib-uglify": "~0.9.0",
-        "grunt-contrib-watch": "~0.6.0",
-        "qunit-assert-close": "^1.1.2"
-      },
-    });
+    init.writePackageJSON('package.json', props);
 
     // All done!
     done();
   });
-
 };
