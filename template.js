@@ -28,7 +28,7 @@ exports.warnOn = '*';
 // The actual init template.
 exports.template = function (grunt, init, done) {
 
-  init.process({type: 'jquery'}, [
+  init.process({}, [
     // Prompt for these values.
     init.prompt('name'),
     init.prompt('title'),
@@ -36,11 +36,10 @@ exports.template = function (grunt, init, done) {
     init.prompt('version'),
     init.prompt('licenses', 'MIT'),
     init.prompt('author_name'),
-    init.prompt('author_email'),
-    init.prompt('author_url')
+    init.prompt('author_email')
   ], function (err, props) {
     // A few additional properties.
-    props.keywords = [];
+    props.keywords = ['javascript', 'qunit'];
     props.npm_test = 'grunt qunit';
     props.devDependencies = {
       'grunt-contrib-clean': '~0.6.0',

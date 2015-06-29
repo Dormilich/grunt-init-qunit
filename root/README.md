@@ -2,18 +2,6 @@
 
 {%= description %}
 
-## Getting Started
-Download the [production version][min] or the [development version][max].
-
-[min]: https://raw.github.com/{%= git_user %}/{%= git_repo %}/master/dist/{%= name %}.min.js
-[max]: https://raw.github.com/{%= git_user %}/{%= git_repo %}/master/dist/{%= name %}.js
-
-In your web page:
-
-```html
-<script src="dist/{%= name %}.min.js"></script>
-```
-
 ## Documentation
 _(Coming soon)_
 
