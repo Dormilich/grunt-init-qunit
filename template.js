@@ -34,7 +34,7 @@ exports.template = function (grunt, init, done) {
     init.prompt('title'),
     init.prompt('description', 'My awesome JavaScript.'),
     init.prompt('version'),
-    init.prompt('licenses', 'MIT'),
+    init.prompt('license', 'MIT'),
     init.prompt('author_name'),
     init.prompt('author_email')
   ], function (err, props) {
